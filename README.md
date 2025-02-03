@@ -6,7 +6,41 @@
 [![JSDocs][jsdocs-src]][jsdocs-href]
 [![License][license-src]][license-href]
 
-_description_
+Copy folders contents and from github into your clipboard ready for LLMs.
+
+```bash
+npx cpnow ./src # pnpx cpnow
+```
+
+Or with GitHub:
+
+```bash
+npx cpnow gh:onmax/cpnow
+```
+
+> The CLI by default will ignore files that are defined in `.gitignore` and `*.test.js` files.
+
+## Installation in your machine
+
+```bash
+npm install -g cpnow
+```
+
+> If you think `cpnow` is long, you can always use an aliad in your `~/.bashrc` or `~/.zshrc` file like `alias cpc='npx cpnow'`
+
+## Flags
+
+### `-h, --help`
+
+Displays help information.
+
+### `-v, --version`
+
+Displays version information.
+
+### `-i <paths>`
+
+Ignores the files/paths passed as arguments.
 
 <!-- Badges -->
 
