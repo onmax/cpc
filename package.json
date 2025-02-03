@@ -1,21 +1,21 @@
 {
-  "name": "cpc",
+  "name": "cpnow",
   "version": "0.0.0",
   "description": "Copy and paste files",
   "author": "onmax",
-  "homepage": "https://github.com/antfu/pkg-placeholder#readme",
+  "homepage": "https://github.com/onmax/cpnow#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antfu/pkg-placeholder.git"
+    "url": "git+https://github.com/onmax/cpnow.git"
   },
-  "bugs": "https://github.com/antfu/pkg-placeholder/issues",
+  "bugs": "https://github.com/onmax/cpnow/issues",
   "keywords": [
     "copy",
     "paste",
     "clipboard"
   ],
   "bin": {
-    "cpc": "./bin.mjs"
+    "cpnow": "./bin.mjs"
   },
   "files": [
     "*.mjs",

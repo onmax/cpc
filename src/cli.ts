@@ -9,7 +9,7 @@ import { getLocalFiles } from './sources/local'
 
 const main = defineCommand({
   meta: {
-    name: 'cpc',
+    name: 'cpnow',
     version: '1.0.0',
     description: 'Retrieve files from a local folder or a GitHub repo',
   },
