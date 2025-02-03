@@ -1,0 +1,57 @@
+{
+  "name": "cpc",
+  "version": "1.0.0",
+  "description": "Copy and paste files",
+  "author": "onmax",
+  "homepage": "https://github.com/antfu/pkg-placeholder#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antfu/pkg-placeholder.git"
+  },
+  "bugs": "https://github.com/antfu/pkg-placeholder/issues",
+  "keywords": [
+    "copy",
+    "paste",
+    "clipboard"
+  ],
+  "bin": {
+    "cpc": "./dist/index.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "prepublishOnly": "nr build",
+    "release": "bumpp && pnpm publish",
+    "start": "tsx src/index.ts",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepare": "simple-git-hooks"
+  },
+  "dependencies": {
+    "citty": "^0.1.6",
+    "consola": "^3.4.0",
+    "ignore": "^7.0.3",
+    "ofetch": "^1.4.1",
+    "tiny-glob": "^0.2.9"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.1.1",
+    "eslint": "^9.19.0",
+    "eslint-plugin-format": "^1.0.1",
+    "lint-staged": "^15.4.2",
+    "simple-git-hooks": "^2.11.1",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
