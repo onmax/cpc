@@ -1,9 +1,8 @@
 import type { Source } from '../types'
 import fs from 'node:fs/promises'
-import ignore from 'ignore'
 import pathe from 'pathe'
 import glob from 'tiny-glob'
-import { isTextBased } from '../utils'
+import { getIgnorer, isTextBased } from '../utils'
 
 // Helper to check if a file exists
 async function fileExists(path: string): Promise<boolean> {
@@ -42,7 +41,7 @@ export async function getLocalFiles(
     throw new Error(`Source path does not exist: ${absSrc}. ${e}`)
   }
 
-  const ig = ignore()
+  const ig = getIgnorer()
 
   if (stats.isDirectory()) {
     const gitignoreContents = await loadGitignoreFiles(absSrc)

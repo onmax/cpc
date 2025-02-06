@@ -3,16 +3,13 @@ import type { GitHubRef } from './sources/github'
 import process from 'node:process'
 import { defineCommand, runMain } from 'citty'
 import consola from 'consola'
+import { description, name, version } from '../package.json'
 import { copyFilesToClipboard } from './output'
 import { getGithubFiles } from './sources/github'
 import { getLocalFiles } from './sources/local'
 
 const main = defineCommand({
-  meta: {
-    name: 'cpnow',
-    version: '1.0.0',
-    description: 'Retrieve files from a local folder or a GitHub repo',
-  },
+  meta: { name, version, description },
   args: {
     source: {
       type: 'positional',

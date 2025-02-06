@@ -1,8 +1,7 @@
 import type { Source } from '../types'
 import consola from 'consola'
-import ignore from 'ignore'
 import { ofetch } from 'ofetch'
-import { isTextBased } from '../utils'
+import { getIgnorer, isTextBased } from '../utils'
 
 export interface GitHubRef {
   org: string
@@ -11,7 +10,7 @@ export interface GitHubRef {
 }
 
 export async function getGithubFiles(ref: GitHubRef, extraIgnore: string[]): Promise<Source[]> {
-  const ig = ignore()
+  const ig = getIgnorer()
 
   try {
     const gitignoreRes = await ofetch(
