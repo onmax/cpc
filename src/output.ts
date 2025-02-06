@@ -15,13 +15,10 @@ export async function copyFilesToClipboard(
   let finalOutput = `${separatorStr}\n`
 
   for (const file of files) {
-    // Split file contents into lines.
     const lines = file.contents.split('\n')
-    // Determine the width needed for the line numbers.
     const totalLines = lines.length
     const padWidth = String(totalLines).length
 
-    // Build the formatted output.
     let formatted = ``
     formatted += `// ./${file.relativePath}\n\n`
     lines.forEach((line, idx) => {
@@ -44,6 +41,5 @@ export async function copyFilesToClipboard(
 
   finalOutput = `<${tag}>\n${finalOutput.trim()}\n</${tag}>`
 
-  // Copy the final formatted output to the clipboard.
   await clipboardy.write(finalOutput.trim())
 }

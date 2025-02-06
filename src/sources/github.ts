@@ -2,6 +2,7 @@ import type { Source } from '../types'
 import consola from 'consola'
 import ignore from 'ignore'
 import { ofetch } from 'ofetch'
+import { isTextBased } from '../utils'
 
 export interface GitHubRef {
   org: string
@@ -12,7 +13,6 @@ export interface GitHubRef {
 export async function getGithubFiles(ref: GitHubRef, extraIgnore: string[]): Promise<Source[]> {
   const ig = ignore()
 
-  // Try to load .gitignore from the repository via the UNGH API.
   try {
     const gitignoreRes = await ofetch(
       `https://ungh.cc/repos/${ref.org}/${ref.repo}/files/HEAD/.gitignore`,
@@ -30,19 +30,16 @@ export async function getGithubFiles(ref: GitHubRef, extraIgnore: string[]): Pro
     ig.add(extraIgnore)
   }
 
-  // Get repository info to determine the default branch.
   const repoInfo = await ofetch(`https://ungh.cc/repos/${ref.org}/${ref.repo}`, {
     responseType: 'json',
   })
   const branch = repoInfo.repo.defaultBranch || 'main'
 
-  // Fetch the full file tree from the default branch.
   const tree = await ofetch(`https://ungh.cc/repos/${ref.org}/${ref.repo}/files/${branch}`, {
     responseType: 'json',
   })
   let files = tree.files
 
-  // If a path is specified, filter to only include files starting with that path.
   if (ref.path) {
     files = files.filter((f: { path: string }) => f.path.startsWith(ref.path))
   }
@@ -52,17 +49,22 @@ export async function getGithubFiles(ref: GitHubRef, extraIgnore: string[]): Pro
     if (ig.ignores(file.path)) {
       continue
     }
-    const fileData = await ofetch(
-      `https://ungh.cc/repos/${ref.org}/${ref.repo}/files/${branch}/${file.path}`,
-      { responseType: 'json' },
-    )
-    const contents = fileData.file.contents
-    // The relativePath is the file path within the repository.
+    let contents = ''
+    if (isTextBased(file.path)) {
+      const fileData = await ofetch(
+        `https://ungh.cc/repos/${ref.org}/${ref.repo}/files/${branch}/${file.path}`,
+        { responseType: 'json' },
+      )
+      contents = fileData.file.contents
+      consola.info(`Fetched ${file.path}`)
+    }
+    else {
+      consola.info(`Skipped downloading non-text file ${file.path}`)
+    }
     results.push({
       relativePath: file.path,
       contents,
     })
-    consola.info(`Fetched ${file.path}`)
   }
   return results
 }
