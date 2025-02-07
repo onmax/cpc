@@ -40,7 +40,6 @@ const ignoreByDefault = [
   'pnpm-lock.yaml',
   'yarn.lock',
   'dist',
-  '*.test.*',
   '*.spec.*',
   'bun.lockb',
   '.bun',

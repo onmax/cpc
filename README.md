@@ -17,7 +17,7 @@ Or with GitHub:
 npx cpnow gh:onmax/cpnow
 ```
 
-> The CLI by default will ignore files that are defined in `.gitignore` and `*.test.js` files.
+> The CLI by default will ignore files that are defined in `.gitignore` files along with other commonly folders not used for code
 
 ## Installation in your machine
 

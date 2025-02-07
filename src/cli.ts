@@ -24,7 +24,7 @@ const main = defineCommand({
   },
   async run({ args }) {
     const { source } = args
-    const ignorePatterns = args.ignore?.split(',') ?? ['*.test.*']
+    const ignorePatterns = args.ignore?.split(',') ?? []
 
     let files
     if (source.startsWith('gh:') || source.startsWith('https://github.com')) {
